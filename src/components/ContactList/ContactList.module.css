@@ -1,0 +1,36 @@
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+}
+.wrapper {
+  display: flex;
+  width: 600px;
+  gap: 30px;
+  border: 1px solid #94bfc6;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 8px;
+}
+.description {
+  font-size: 24px;
+  font-weight: 500;
+  color: #e7edee;
+  margin: 0;
+}
+.button {
+  /* display: flex; */
+  padding: 4px 8px;
+  height: 30px;
+  width: 100px;
+  justify-content: center;
+  background-color: #94bfc6;
+  border-radius: 4px;
+}
+.button:hover,
+.button:focus {
+  color: #fff;
+}
