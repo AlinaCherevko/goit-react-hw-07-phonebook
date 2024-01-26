@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'store/contacts/contactsSlice';
+import { apiPostContact } from 'store/contacts/contactsSlice';
+
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
@@ -11,29 +12,13 @@ export const ContactForm = () => {
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
 
-  const addNewName = formData => {
-    const avoidRepitition = contacts.some(
-      contact => contact.userName === formData.userName
-    );
-    if (avoidRepitition) {
-      alert(`${formData.userName} is already exist!`);
-      return;
-    }
-
-    const finalProfile = {
-      ...formData,
-      id: nanoid(),
-    };
-    const action = addContact(finalProfile);
-    dispatch(action);
-  };
   const formSubmit = e => {
     e.preventDefault();
 
     const formData = {
       userName,
       userNumber,
-      id: nanoid(),
+      // id буде ств у базі даних тому ми тут більше не використовуємо id: nanoid(),
     };
     // console.log(formData);
     addNewName(formData);
@@ -45,6 +30,19 @@ export const ContactForm = () => {
     //очищуємо неконтрольовану форму:
     // e.currentTarget.reset();
   };
+
+  const addNewName = async formData => {
+    const avoidRepitition = contacts.some(
+      contact => contact.userName === formData.userName
+    );
+    if (avoidRepitition) {
+      alert(`${formData.userName} is already exist!`);
+      return;
+    }
+
+    dispatch(apiPostContact(formData));
+  };
+
   //Напишимо метод що контролює поля форм і змінює стан:
   const onChangeInputForm = ({ target: { name, value } }) => {
     switch (name) {
