@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { apiPostContact } from 'store/contacts/contactsSlice';
+import { selectDataContacts } from 'store/contacts/contactSlise.selectors';
 
 import css from './ContactForm.module.css';
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(store => store.contacts.contacts);
+  const contacts = useSelector(selectDataContacts);
 
   const [userName, setUserName] = useState('');
   const [userNumber, setUserNumber] = useState('');
@@ -20,7 +21,7 @@ export const ContactForm = () => {
       userNumber,
       // id буде ств у базі даних тому ми тут більше не використовуємо id: nanoid(),
     };
-    // console.log(formData);
+
     addNewName(formData);
 
     //контрольовано очищуємо вміст форми:

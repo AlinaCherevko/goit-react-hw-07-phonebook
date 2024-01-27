@@ -6,6 +6,11 @@
   gap: 10px;
   list-style: none;
 }
+.warning {
+  color: #94bfc6;
+  text-align: center;
+  font-size: 20px;
+}
 .wrapper {
   display: flex;
   width: 600px;

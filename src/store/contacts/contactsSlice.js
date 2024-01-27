@@ -3,7 +3,7 @@ import { getContacts, postContact, removeContact } from 'servises/api';
 
 const initialState = {
   contacts: [],
-  contactData: [],
+
   status: 'idle',
   isLoading: false,
   error: null,
@@ -57,28 +57,34 @@ const contactsSlice = createSlice({
       //Get Contact
       .addCase(apiGetContacts.pending, (state, action) => {
         state.status = 'pending';
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(apiGetContacts.fulfilled, (state, action) => {
         state.status = 'success';
+        state.isLoading = false;
         state.contacts = action.payload;
       })
       .addCase(apiGetContacts.rejected, (state, action) => {
         state.status = 'error';
+        state.isLoading = false;
         state.error = action.payload;
       })
 
       //Post Contact
       .addCase(apiPostContact.pending, (state, action) => {
         state.status = 'pending';
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(apiPostContact.fulfilled, (state, action) => {
         state.status = 'success';
+        state.isLoading = false;
         state.contacts.push(action.payload);
       })
       .addCase(apiPostContact.rejected, (state, action) => {
         state.status = 'error';
+        state.isLoading = false;
         state.error = action.payload;
       })
 
@@ -90,7 +96,7 @@ const contactsSlice = createSlice({
       .addCase(apiDeleteContact.fulfilled, (state, action) => {
         state.status = 'success';
         state.contacts = state.contacts.filter(
-          contact => contact.id !== action.payload
+          contact => contact.id !== action.payload.id
         );
       })
       .addCase(apiDeleteContact.rejected, (state, action) => {
@@ -99,8 +105,5 @@ const contactsSlice = createSlice({
       }),
 });
 
-// Генератори екшенів
-// export const { addContact, deleteContact, filterContact } =
-//   contactsSlice.actions;
 // Редюсер слайсу
 export const contactsReducer = contactsSlice.reducer;

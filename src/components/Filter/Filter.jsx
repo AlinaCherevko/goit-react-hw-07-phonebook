@@ -13,8 +13,7 @@ export const Filter = () => {
         type="text"
         onChange={e => dispatch(filterContact(e.currentTarget.value))}
         className={css.input}
-        // value={value}
-        placeholder=""
+        placeholder="Find name.."
       />
     </div>
   );
